@@ -46,7 +46,7 @@ print(total_sales)
 #https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
 product_grouping = sales.groupby("product")["sales price"].sum()
 
-print(str(product_grouping))
+print(str(product_grouping.nlargest(7)))
 
 print("-----------------------")
 print("TOTAL MONTHLY SALES: $12,000.71")
