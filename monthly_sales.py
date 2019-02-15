@@ -19,7 +19,8 @@ if (os.path.isfile(file_name) == False):
     print("Sorry! That file path does not exist.")
     exit()
 
-sales = pd.read_csv(file_name)
+
+sales = pd.DataFrame.from_csv(file_name)
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
@@ -41,6 +42,10 @@ print("CRUNCHING THE DATA...")
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
 total_sales = sales["sales price"].sum()
 print(total_sales)
+
+product_grouping = sales.groupby("product")["sales price"].sum()
+
+print(str(product_grouping))
 
 print("-----------------------")
 print("TOTAL MONTHLY SALES: $12,000.71")
