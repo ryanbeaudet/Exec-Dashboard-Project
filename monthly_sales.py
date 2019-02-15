@@ -22,6 +22,10 @@ if (os.path.isfile(file_name) == False):
 
 sales = pd.read_csv(file_name)
 
+products = sales["product"]
+
+unique_products = products.unique()
+
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
     #with open(file_name) as file:
@@ -51,13 +55,17 @@ sales_val = product_grouping.nlargest(7).values
 
 i = 0
 
-while (i < 7):
-    print(sales_val[i])
-    current = sales_val[i]
-    q = 0
-    while(current != product_grouping[q]):
-        q = q + 1
-    print(product_grouping[q]["product"])
+#while (i < 7):
+    #print(sales_val[i])
+    #current = sales_val[i]
+    #q = 0
+    #while(current != product_grouping[q]):
+        #q = q + 1
+    #print(sales.groupby("product").apply()
+
+for p in sales:
+    print(p[2])
+
     
 
 print(product_grouping[0])
