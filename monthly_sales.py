@@ -16,7 +16,7 @@ file_name = input("Please input the file you would like to be read:")
 
 #adapted from https://stackabuse.com/python-check-if-a-file-or-directory-exists/
 if (os.path.isfile(file_name) == False):
-    print("BAD")
+    print("Sorry! That file path does not exist.")
     exit()
 
 sales = pd.read_csv(file_name)
