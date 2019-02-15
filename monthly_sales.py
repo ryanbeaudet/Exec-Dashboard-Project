@@ -43,6 +43,7 @@ print("CRUNCHING THE DATA...")
 total_sales = sales["sales price"].sum()
 print(total_sales)
 
+#https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
 product_grouping = sales.groupby("product")["sales price"].sum()
 
 print(str(product_grouping))
