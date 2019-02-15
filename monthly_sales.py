@@ -20,7 +20,7 @@ if (os.path.isfile(file_name) == False):
     exit()
 
 
-sales = pd.DataFrame.from_csv(file_name)
+sales = pd.DataFrame.read_csv(file_name)
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
@@ -49,7 +49,15 @@ product_grouping = sales.groupby("product")["sales price"].sum()
 print(str(product_grouping.nlargest(7).values))
 
 import plotly
-importplotly.graph_objs as go
+import plotly.graph_objs as go
+
+labels = []
+values = []
+
+for g in product_grouping:
+    labels.append("product")
+    values.append("sales price")
+    
 
 print("-----------------------")
 print("TOTAL MONTHLY SALES: $12,000.71")
