@@ -20,7 +20,7 @@ if (os.path.isfile(file_name) == False):
     exit()
 
 
-sales = pd.DataFrame.read_csv(file_name)
+sales = pd.read_csv(file_name)
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
@@ -57,6 +57,10 @@ values = []
 for g in product_grouping:
     labels.append("product")
     values.append("sales price")
+
+trace = go.Pie(labels=labels, values=values)
+
+plotly.offline.plot([trace], filename="basic_pie_chart.html", auto_open=True)
     
 
 print("-----------------------")
