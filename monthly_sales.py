@@ -46,7 +46,25 @@ print(total_sales)
 #https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
 product_grouping = sales.groupby("product")["sales price"].sum()
 
-print(str(product_grouping.nlargest(7).values))
+sales_val = product_grouping.nlargest(7).values
+#product_val = sales_val.unstack(index="sales price",columns = "product")
+
+i = 0
+
+while (i < 7):
+    print(sales_val[i])
+    current = sales_val[i]
+    q = 0
+    while(current != product_grouping[q]):
+        q = q + 1
+    print(product_grouping[q]["product"])
+    
+
+print(product_grouping[0])
+
+
+
+#print(str(product_grouping.nlargest(7).values))
 
 import plotly
 import plotly.graph_objs as go
@@ -54,13 +72,14 @@ import plotly.graph_objs as go
 labels = []
 values = []
 
-for g in product_grouping:
-    labels.append("product")
-    values.append("sales price")
+#for g in product_grouping:
+    #if (g < product_grouping.count()):
+        #labels.append(g)
+    #values.append(g["sales price"])
 
-trace = go.Pie(labels=labels, values=values)
+trace = go.Bar(x=int(product_grouping["sales price"]), y=int(product_grouping.index), name = "Monthly Sales")
 
-plotly.offline.plot([trace], filename="basic_pie_chart.html", auto_open=True)
+plotly.offline.plot([trace], filename="basic_pie_chart.html",  auto_open=True)
     
 
 print("-----------------------")
