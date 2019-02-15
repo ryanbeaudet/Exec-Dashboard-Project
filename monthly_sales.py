@@ -22,9 +22,23 @@ if (os.path.isfile(file_name) == False):
 
 sales = pd.read_csv(file_name)
 
+#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
 products = sales["product"]
 
 unique_products = products.unique()
+
+unique_products = unique_products.tolist()
+
+top_sellers = []
+
+for p in unique_products:
+    corresponding_rows = sales[sales["product"] == p]
+    #https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
+    total_sales = sales["sales price"].sum()
+    product_sales = corresponding_rows["sales price"].sum()
+    top_sellers.append({"name": p, "monthly_sales":product_sales} )
+
+
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
@@ -44,13 +58,13 @@ print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
-total_sales = sales["sales price"].sum()
+
 print(total_sales)
 
-#https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
-product_grouping = sales.groupby("product")["sales price"].sum()
 
-sales_val = product_grouping.nlargest(7).values
+#product_grouping = sales.groupby("product")["sales price"].sum()
+
+#sales_val = product_grouping.nlargest(7).values
 #product_val = sales_val.unstack(index="sales price",columns = "product")
 
 i = 0
@@ -63,12 +77,12 @@ i = 0
         #q = q + 1
     #print(sales.groupby("product").apply()
 
-for p in sales:
-    print(p[2])
+#for p in sales:
+    #print(p[2])
 
     
 
-print(product_grouping[0])
+#print(product_grouping[0])
 
 
 
@@ -77,13 +91,13 @@ print(product_grouping[0])
 import plotly
 import plotly.graph_objs as go
 
-labels = []
-values = []
+xValues = []
+yValues = []
 
-#for g in product_grouping:
-    #if (g < product_grouping.count()):
-        #labels.append(g)
-    #values.append(g["sales price"])
+#for g in unique products:
+ #   if (g < unique_products.len()):
+  #      xValues.append(g)
+    
 
 trace = go.Bar(x=int(product_grouping["sales price"]), y=int(product_grouping.index), name = "Monthly Sales")
 
