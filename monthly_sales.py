@@ -38,7 +38,11 @@ for p in unique_products:
     product_sales = corresponding_rows["sales price"].sum()
     top_sellers.append({"name": p, "monthly_sales":product_sales} )
 
+n = 1
 
+for f in top_sellers:
+    print(str(n) + " " + f["name"] + ": " + str(f["monthly_sales"]))
+    n = n + 1
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
@@ -94,12 +98,12 @@ import plotly.graph_objs as go
 xValues = []
 yValues = []
 
-#for g in unique products:
- #   if (g < unique_products.len()):
-  #      xValues.append(g)
+for g in top_sellers:
+    xValues.append(g["name"])
+    yValues.append(g["monthly_sales"])
     
 
-trace = go.Bar(x=int(product_grouping["sales price"]), y=int(product_grouping.index), name = "Monthly Sales")
+trace = go.Bar(x=xValues, y=yValues, name = "Monthly Sales")
 
 plotly.offline.plot([trace], filename="basic_pie_chart.html",  auto_open=True)
     
