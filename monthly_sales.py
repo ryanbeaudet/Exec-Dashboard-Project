@@ -16,16 +16,18 @@ file_name = input("Please input the file you would like to be read:")
 #adapted from https://stackabuse.com/python-check-if-a-file-or-directory-exists/
 if (os.path.isfile(file_name) == False):
     print("Sorry! That file path does not exist.")
+    #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
     exit()
 
-
 sales = pd.read_csv(file_name)
+
+
 
 #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
 products = sales["product"]
 
 
-
+#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/01b261ca30ee4c64d93c2146a1659ae2c9d445a5#diff-2bc9303c4e0187b3363d76974cc2fc8c
 unique_products = products.unique()
 
 unique_products = unique_products.tolist()
@@ -50,30 +52,12 @@ for f in top_sellers:
     print(str(n) + ") " + f["name"] + ": " + str(to_usd(f["monthly_sales"])))
     n = n + 1
 print("Total monthly sales: " + str(to_usd(total_sales)))
-#adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
-#try:
-    #with open(file_name) as file:
-        
-#except:
-    #"Sorry! That file path does not exist."
-
-
-
-
 
 
 
 
 
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
-
-
-
-
-    
-
-
-
 import plotly
 import plotly.graph_objs as go
 
@@ -81,6 +65,7 @@ title = "Top Selling Products"
 
 xValues = []
 yValues = []
+
 
 for g in top_sellers:
     xValues.append(g["name"])
@@ -94,6 +79,7 @@ def month_amend(month):
     '11':'November','12':'December'}
     return month_adjust[month]
 
+#Caroline helped with this too
 month = month_amend(file_name[-6:-4])
 year = int(file_name[6:10])
 
@@ -108,9 +94,12 @@ layout = go.Layout(
     ),
     yaxis = dict(
         title = "Total Sales per Item",
-        hoverformat = '${%1.0f}')
+        hoverformat = '${%1.0f}',
+        #adapted to https://plot.ly/python/reference/#layout-yaxis-tickvals
+        tickformat = '${%1.0f}')
 )  
 
+#adapted from https://stackoverflow.com/questions/42913417/plotly-not-showing-axis-labels-or-title
 fig = go.Figure(data=data,layout=layout)
 
 #adapted from https://stackoverflow.com/questions/42913417/plotly-not-showing-axis-labels-or-title
