@@ -25,6 +25,7 @@ sales = pd.read_csv(file_name)
 
 #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
 products = sales["product"]
+'${:,.2f}'.format(sales["sales price"])
 
 unique_products = products.unique()
 
@@ -109,16 +110,28 @@ for g in top_sellers:
     xValues.append(g["name"])
     yValues.append(g["monthly_sales"])
 
+#thanks to Caroline Feeney for the guidance!!
+def month_amend(month):
+    month_adjust={'01':'January', '02':'February',
+    '03':'March','04':'April','05':'May','06':'June',
+    '07':'July','08':'August','09':'September','10':'October',
+    '11':'November','12':'December'}
+    return month_adjust[month]
+
+month = month_amend(file_name[-6:-4])
+year = int(file_name[6:10])
 
 
+#adapted from https://plot.ly/python/bar-charts/
 trace = go.Bar(x=xValues, y=yValues)
 data = [trace]
 layout = go.Layout(
-    title = "Monthly Sales", 
+    title = "Monthly Sales for " + month + " " + str(year), 
 )  
 
 fig = go.Figure(data=data,layout=layout)
 
+#adapted from https://stackoverflow.com/questions/42913417/plotly-not-showing-axis-labels-or-title
 plotly.offline.plot(fig, filename="basic_pie_chart.html",  auto_open=True)
     
 
