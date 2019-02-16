@@ -129,8 +129,12 @@ trace = go.Bar(x=xValues, y=yValues)
 data = [trace]
 layout = go.Layout(
     title = "Monthly Sales for " + month + " " + str(year),
+    xaxis = dict(
+        title = 'Top Selling Products'
+    ),
     yaxis = dict(
-        hoverformat = '${0:,.2f}')
+        title = "Total Sales per Item",
+        hoverformat = '${%.2f}')
 )  
 
 fig = go.Figure(data=data,layout=layout)
