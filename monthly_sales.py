@@ -10,7 +10,9 @@ import os
 import csv
 import pandas as pd
 
-
+#adapted from https://stackoverflow.com/questions/21208376/converting-float-to-dollars-and-cents
+def to_usd(value):
+    return '${:,.2f}'.format(value)
 
 #adapted from https://www.pythonforbeginners.com/basics/getting-user-input-from-the-keyboard
 file_name = input("Please input the file you would like to be read:")
@@ -25,7 +27,7 @@ sales = pd.read_csv(file_name)
 
 #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
 products = sales["product"]
-'${:,.2f}'.format(sales["sales price"])
+
 
 unique_products = products.unique()
 
@@ -47,7 +49,7 @@ top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reve
 n = 1
 
 for f in top_sellers:
-    print(str(n) + " " + f["name"] + ": " + str(f["monthly_sales"]))
+    print(str(n) + " " + f["name"] + ": " + str(to_usd(f["monthly_sales"])))
     n = n + 1
 
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
@@ -69,7 +71,7 @@ print("CRUNCHING THE DATA...")
 
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
 
-print(total_sales)
+print(to_usd(total_sales))
 
 
 #product_grouping = sales.groupby("product")["sales price"].sum()
@@ -108,7 +110,7 @@ yValues = []
 
 for g in top_sellers:
     xValues.append(g["name"])
-    yValues.append(g["monthly_sales"])
+    yValues.append(to_usd(g["monthly_sales"]))
 
 #thanks to Caroline Feeney for the guidance!!
 def month_amend(month):
@@ -126,7 +128,9 @@ year = int(file_name[6:10])
 trace = go.Bar(x=xValues, y=yValues)
 data = [trace]
 layout = go.Layout(
-    title = "Monthly Sales for " + month + " " + str(year), 
+    title = "Monthly Sales for " + month + " " + str(year),
+    yaxis = dict(
+        hoverformat = '${0:,.2f}')
 )  
 
 fig = go.Figure(data=data,layout=layout)
@@ -135,14 +139,3 @@ fig = go.Figure(data=data,layout=layout)
 plotly.offline.plot(fig, filename="basic_pie_chart.html",  auto_open=True)
     
 
-print("-----------------------")
-print("TOTAL MONTHLY SALES: $12,000.71")
-
-print("-----------------------")
-print("TOP SELLING PRODUCTS:")
-print("  1) Button-Down Shirt: $6,960.35")
-print("  2) Super Soft Hoodie: $1,875.00")
-print("  3) etc.")
-
-print("-----------------------")
-print("VISUALIZING THE DATA...")
