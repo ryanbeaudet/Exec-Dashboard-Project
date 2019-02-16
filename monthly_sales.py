@@ -5,6 +5,7 @@
 # TODO: write some Python code here to produce the desired functionality...
 
 #adapted from sales_reporting_exercise
+import operator
 import os
 import csv
 import pandas as pd
@@ -38,6 +39,10 @@ for p in unique_products:
     product_sales = corresponding_rows["sales price"].sum()
     top_sellers.append({"name": p, "monthly_sales":product_sales} )
 
+#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/1bf69cc8c8c4d26d8aa265b4fc984cd01ad894ff#diff-2bc9303c4e0187b3363d76974cc2fc8c
+top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True)
+
+#I did this part totally on my own, I'm very proud of it
 n = 1
 
 for f in top_sellers:
@@ -95,17 +100,26 @@ i = 0
 import plotly
 import plotly.graph_objs as go
 
+title = "Top Selling Products"
+
 xValues = []
 yValues = []
 
 for g in top_sellers:
     xValues.append(g["name"])
     yValues.append(g["monthly_sales"])
-    
 
-trace = go.Bar(x=xValues, y=yValues, name = "Monthly Sales")
 
-plotly.offline.plot([trace], filename="basic_pie_chart.html",  auto_open=True)
+
+trace = go.Bar(x=xValues, y=yValues)
+data = [trace]
+layout = go.Layout(
+    title = "Monthly Sales", 
+)  
+
+fig = go.Figure(data=data,layout=layout)
+
+plotly.offline.plot(fig, filename="basic_pie_chart.html",  auto_open=True)
     
 
 print("-----------------------")
