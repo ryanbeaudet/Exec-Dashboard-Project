@@ -1,9 +1,5 @@
 # monthly_sales.py
 
-# TODO: import some modules and/or packages here
-
-# TODO: write some Python code here to produce the desired functionality...
-
 #adapted from sales_reporting_exercise
 import operator
 import os
@@ -29,6 +25,7 @@ sales = pd.read_csv(file_name)
 products = sales["product"]
 
 
+
 unique_products = products.unique()
 
 unique_products = unique_products.tolist()
@@ -47,11 +44,12 @@ top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reve
 
 #I did this part totally on my own, I'm very proud of it
 n = 1
-
+print("\n")
+print( "Top Selling Products:")
 for f in top_sellers:
-    print(str(n) + " " + f["name"] + ": " + str(to_usd(f["monthly_sales"])))
+    print(str(n) + ") " + f["name"] + ": " + str(to_usd(f["monthly_sales"])))
     n = n + 1
-
+print("Total monthly sales: " + str(to_usd(total_sales)))
 #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
 #try:
     #with open(file_name) as file:
@@ -61,44 +59,20 @@ for f in top_sellers:
 
 
 
-print("-----------------------")
-print("MONTH: March 2018")
 
 
 
-print("-----------------------")
-print("CRUNCHING THE DATA...")
+
+
 
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
 
-print(to_usd(total_sales))
 
 
-#product_grouping = sales.groupby("product")["sales price"].sum()
-
-#sales_val = product_grouping.nlargest(7).values
-#product_val = sales_val.unstack(index="sales price",columns = "product")
-
-i = 0
-
-#while (i < 7):
-    #print(sales_val[i])
-    #current = sales_val[i]
-    #q = 0
-    #while(current != product_grouping[q]):
-        #q = q + 1
-    #print(sales.groupby("product").apply()
-
-#for p in sales:
-    #print(p[2])
 
     
 
-#print(product_grouping[0])
 
-
-
-#print(str(product_grouping.nlargest(7).values))
 
 import plotly
 import plotly.graph_objs as go
@@ -134,7 +108,7 @@ layout = go.Layout(
     ),
     yaxis = dict(
         title = "Total Sales per Item",
-        hoverformat = '${%.2f}')
+        hoverformat = '${%1.0f}')
 )  
 
 fig = go.Figure(data=data,layout=layout)
