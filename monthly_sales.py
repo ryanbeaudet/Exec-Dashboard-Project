@@ -94,9 +94,9 @@ layout = go.Layout(
     ),
     yaxis = dict(
         title = "Total Sales per Item",
-        hoverformat = '${%1.0f}',
+        hoverformat = '$.2f',
         #adapted to https://plot.ly/python/reference/#layout-yaxis-tickvals
-        tickformat = '${%1.0f}')
+        tickformat = '$.2f')
 )  
 
 #adapted from https://stackoverflow.com/questions/42913417/plotly-not-showing-axis-labels-or-title
