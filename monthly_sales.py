@@ -10,39 +10,58 @@ import pandas as pd
 def to_usd(value):
     return '${:,.2f}'.format(value)
 
-#adapted from https://www.pythonforbeginners.com/basics/getting-user-input-from-the-keyboard
-file_name = input("Please input the file you would like to be read:")
 
-#adapted from https://stackabuse.com/python-check-if-a-file-or-directory-exists/
-if (os.path.isfile(file_name) == False):
-    print("Sorry! That file path does not exist.")
-    #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
-    exit()
+if __name__ == "__main__":
+    #adapted from https://www.pythonforbeginners.com/basics/getting-user-input-from-the-keyboard
+    file_name = input("Please input the file you would like to be read:")
 
-sales = pd.read_csv(file_name)
+    #adapted from https://stackabuse.com/python-check-if-a-file-or-directory-exists/
+    if (os.path.isfile(file_name) == False):
+        print("Sorry! That file path does not exist.")
+        #adapted from https://www.google.com/search?q=how+to+cause+a+python+program+to+stop+running&oq=how+to+cause+a+python+program+to+stop+running&aqs=chrome..69i57.8490j0j7&sourceid=chrome&ie=UTF-8
+        exit()
 
-
-
-#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
-products = sales["product"]
+    print("wow")
+    sales = pd.read_csv(file_name)
 
 
-#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/01b261ca30ee4c64d93c2146a1659ae2c9d445a5#diff-2bc9303c4e0187b3363d76974cc2fc8c
-unique_products = products.unique()
 
-unique_products = unique_products.tolist()
 
-top_sellers = []
 
-for p in unique_products:
-    corresponding_rows = sales[sales["product"] == p]
-    #https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
-    total_sales = sales["sales price"].sum()
-    product_sales = corresponding_rows["sales price"].sum()
-    top_sellers.append({"name": p, "monthly_sales":product_sales} )
 
-#adapted from https://github.com/s2t2/exec-dash-starter-py/commit/1bf69cc8c8c4d26d8aa265b4fc984cd01ad894ff#diff-2bc9303c4e0187b3363d76974cc2fc8c
-top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True)
+
+
+
+
+def get_top_sellers(sales):
+    #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
+    products = sales["product"]
+
+
+
+    #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/01b261ca30ee4c64d93c2146a1659ae2c9d445a5#diff-2bc9303c4e0187b3363d76974cc2fc8c
+    unique_products = products.unique()
+
+    unique_products = unique_products.tolist()
+    
+    top_sellers = []
+    
+    for p in unique_products:
+        corresponding_rows = sales[sales["product"] == p]
+        #https://www.shanelynn.ie/summarising-aggregation-and-grouping-data-in-python-pandas/
+        total_sales = sales["sales price"].sum()
+        product_sales = corresponding_rows["sales price"].sum()
+        top_sellers.append({"name": p, "monthly_sales":product_sales} )
+
+    #adapted from https://github.com/s2t2/exec-dash-starter-py/commit/1bf69cc8c8c4d26d8aa265b4fc984cd01ad894ff#diff-2bc9303c4e0187b3363d76974cc2fc8c
+    top_sellers = sorted(top_sellers, key=operator.itemgetter("monthly_sales"), reverse=True)
+    
+    return top_sellers
+
+
+
+
+'''
 
 #I did this part totally on my own, I'm very proud of it
 n = 1
@@ -54,9 +73,9 @@ for f in top_sellers:
 print("Total monthly sales: " + str(to_usd(total_sales)))
 
 
+'''
 
-
-
+'''
 #adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/pandas_explore.py
 import plotly
 import plotly.graph_objs as go
@@ -106,3 +125,4 @@ fig = go.Figure(data=data,layout=layout)
 plotly.offline.plot(fig, filename="basic_pie_chart.html",  auto_open=True)
     
 
+'''
