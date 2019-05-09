@@ -1,9 +1,11 @@
-from monthly_sales import *
+from app.monthly_sales import *
 import operator
 import os
 import csv
 import pandas as pd
 
+
+#adapted from https://github.com/s2t2/shopping-cart-screencast/blob/testing/shopping_cart_test.py
 def test_to_usd():
     assert to_usd(7) == "$7.00"
 
@@ -15,8 +17,10 @@ def test_to_usd():
 
     assert to_usd(1000000) == "$1,000,000.00"
 
+
+#adapted from https://github.com/s2t2/shopping-cart-screencast/blob/testing/shopping_cart_test.py
 def test_get_top_sellers():
-    csv_name = "sales-201710.csv"
+    csv_name = "data/sales-201710.csv"
     
     
 
